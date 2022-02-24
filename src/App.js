@@ -5,20 +5,28 @@ import About from "./pages/About"
 import Page404 from "./pages/Page404"
 
 import Navbar from "./components/Navbar"
+import { useEffect, useState } from "react"
+import axios from "axios"
+
+import { GlobalStyle } from './STYLE/styleGLOBAL'
+
 
 function App() {
 
+
   return (
     <BrowserRouter>
-    <Navbar></Navbar>
+      <GlobalStyle />
+      <Navbar></Navbar>
       <Routes>
-        <Route path='/about' element={<Home />} />
-        <Route path='/' element={<About />} exact />
+        <Route path='/' element={<Home />} exact />
+        <Route path='/about' element={<About />} />
         <Route path='*' element={<Page404 />} />
       </Routes>
 
     </BrowserRouter>
   )
 }
+
 
 export default App;
