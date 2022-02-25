@@ -2,6 +2,7 @@
 import { NavLink as NavLinkNS } from "react-router-dom"
 import styled from "styled-components"
 
+
 const Navbar = () => {
   return (
     <NavbarWrapper>
@@ -17,7 +18,7 @@ const Navbar = () => {
 }
 
 const NavbarWrapper = styled.header`
-  
+  background-color: ${p => p.theme.BG.main};
 `
 
 const MainNav = styled.nav`

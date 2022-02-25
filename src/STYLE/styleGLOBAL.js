@@ -17,12 +17,14 @@ export const GlobalStyle = createGlobalStyle`
 
 export const lightTheme = {
   BG: {
-    main: "white",
+    main: "grey",
+    main2: "#e2e2e2",
   }
 }
 
 export const darkTheme = {
   BG: {
     main: "black",
+    main2: "black",
   }
 }
