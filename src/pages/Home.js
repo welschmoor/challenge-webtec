@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 
-
+// Zum ersten mal im Leben die Pagination mit REST gemacht (bisher nur in GraphQL)
 
 const Home = () => {
   const [dataST, setDataST] = useState([])
@@ -11,6 +11,7 @@ const Home = () => {
   const [limitST, setLimitST] = useState(20) // show 20 per page
   const [loadingST, setLoadingST] = useState(true)
   console.log("dataST", dataST)
+  console.log("pageST", pageST)
 
 
   /* limit fields:
@@ -37,11 +38,24 @@ const Home = () => {
     }
     fetchData()
     return () => { unsub = true }
-  }, [limitST]) //end useEffect
+  }, [limitST, pageST]) //end useEffect
 
   const changeLimitHandler = (limitINT) => {
     console.log('limitINT', limitINT)
     setLimitST(Number(limitINT))
+  }
+
+  // const showPageNumHandler = pageINT => {
+
+  // }
+
+  const changePage = (pageUpOrDown) => {
+    if (pageST < 2 && pageUpOrDown === "down") { return }
+    if (pageUpOrDown === "up") {
+      setPageST(p => p + 1)
+    } else {
+      setPageST(p => p - 1)
+    }
   }
 
   return (
@@ -52,6 +66,12 @@ const Home = () => {
         <option value="100" >100</option>
       </select>
       {dataST.map(e => <div key={e.id}>{e.id}</div>)}
+
+      <button onClick={() => setPageST(p => p - 1)} disabled={loadingST || pageST < 2} >previous</button>
+      <button onClick={() => changePage("down")} disabled={loadingST} >{pageST - 1} </button>
+      <button>{pageST} </button>
+      <button onClick={() => changePage("up")} disabled={loadingST} >{pageST + 1} </button>
+      <button onClick={() => setPageST(p => p + 1)} disabled={loadingST} >next</button>
     </MainWrapper>
   )
 }
