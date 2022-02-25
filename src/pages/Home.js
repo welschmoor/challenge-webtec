@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
-
+import { VscTriangleUp } from "react-icons/vsc"
+import ArtCard from "../components/ArtCard"
 // Zum ersten mal im Leben die Pagination mit REST gemacht (bisher nur in GraphQL)
 
 const Home = () => {
@@ -19,8 +20,7 @@ const Home = () => {
 
    paginate and limit (limit per page):
      ?page=2&limit=100 */
-
-  const api_url = `https://api.artic.edu/api/v1/artworks?page=${pageST}&limit=${limitST}&fields=id`
+  const api_url = `https://api.artic.edu/api/v1/artworks?page=${pageST}&limit=${limitST}&fields=id,image_id,title`
   useEffect(() => {
     let unsub = false
     const fetchData = async () => {
@@ -65,19 +65,74 @@ const Home = () => {
         <option value="50"  >50</option>
         <option value="100" >100</option>
       </select>
-      {dataST.map(e => <div key={e.id}>{e.id}</div>)}
 
-      <button onClick={() => setPageST(p => p - 1)} disabled={loadingST || pageST < 2} >previous</button>
-      <button onClick={() => changePage("down")} disabled={loadingST} >{pageST - 1} </button>
-      <button>{pageST} </button>
-      <button onClick={() => changePage("up")} disabled={loadingST} >{pageST + 1} </button>
-      <button onClick={() => setPageST(p => p + 1)} disabled={loadingST} >next</button>
+      <Grid>
+        {dataST.map(e => <ArtCard key={e.id} e={e} />)}
+
+      </Grid>
+
+      <BtnGroup>
+        <BackForthBTN onClick={() => setPageST(p => p - 1)} disabled={loadingST || pageST < 2} >previous</BackForthBTN>
+        <BTN onClick={() => changePage("down")} disabled={loadingST || pageST < 2} >{pageST - 1} </BTN>
+        <CurPageBTN>{pageST} <TriangleIcon /></CurPageBTN>
+        <BTN onClick={() => changePage("up")} disabled={loadingST} >{pageST + 1} </BTN>
+        <BackForthBTN onClick={() => setPageST(p => p + 1)} disabled={loadingST} >next</BackForthBTN>
+      </BtnGroup>
+
     </MainWrapper>
   )
 }
 
+
+
 const MainWrapper = styled.main`
   background-color: ${p => p.theme.BG.main2};
+  min-height: 100vh;
 `
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+`
+
+const BtnGroup = styled.div`
+  display: flex;
+  gap: 20px;
+`
+
+const BTN = styled.button`
+  font-size: 0.9rem;
+  cursor: pointer;
+  min-width: 40px;
+  min-height: 40px;
+
+  background-color: ${p => p.disabled ? p.theme.BTN.mainDisabled : p.theme.BTN.main};
+  color: ${p => p.disabled ? p.theme.BTN.textDisabled : p.theme.BTN.text};
+  /* border: 1px solid purple; */
+  border: none;
+  border-radius: 226px;
+`
+
+const BackForthBTN = styled(BTN)`
+  min-width: 90px;
+`
+
+const CurPageBTN = styled(BTN)`
+  background-color: ${p => p.theme.BTN.currentPage};
+  position: relative;
+  
+`
+
+
+const TriangleIcon = styled(VscTriangleUp)`
+  font-size: 0.77rem;
+  color: ${p => p.theme.BTN.currentPage};
+  position: absolute;
+  bottom: -15px;
+  left: 12px;
+`
+
+
 
 export default Home
