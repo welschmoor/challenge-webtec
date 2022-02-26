@@ -23,7 +23,6 @@ const NavbarWrapper = styled.header`
 
 const MainNav = styled.nav`
 
-
 `
 
 const NavUL = styled.ul`

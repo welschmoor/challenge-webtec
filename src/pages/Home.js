@@ -4,6 +4,8 @@ import axios from 'axios'
 import styled from 'styled-components'
 import { VscTriangleUp } from "react-icons/vsc"
 import ArtCard from "../components/ArtCard"
+import Pagination from '../components/Pagination'
+import ItemsPerPage from '../components/ItemsPerPage'
 // Zum ersten mal im Leben die Pagination mit REST gemacht (bisher nur in GraphQL)
 
 const Home = () => {
@@ -60,24 +62,15 @@ const Home = () => {
 
   return (
     <MainWrapper>
-      <select onChange={e => changeLimitHandler(e.target.value)}>
-        <option value="20"  >20</option>
-        <option value="50"  >50</option>
-        <option value="100" >100</option>
-      </select>
+      <ItemsPerPage changeLimitHandler={changeLimitHandler} />
+
+      <Pagination changePage={changePage} setPageST={setPageST} loadingST={loadingST} pageST={pageST} />
 
       <Grid>
         {dataST.map(e => <ArtCard key={e.id} e={e} />)}
-
       </Grid>
 
-      <BtnGroup>
-        <BackForthBTN onClick={() => setPageST(p => p - 1)} disabled={loadingST || pageST < 2} >previous</BackForthBTN>
-        <BTN onClick={() => changePage("down")} disabled={loadingST || pageST < 2} >{pageST - 1} </BTN>
-        <CurPageBTN>{pageST} <TriangleIcon /></CurPageBTN>
-        <BTN onClick={() => changePage("up")} disabled={loadingST} >{pageST + 1} </BTN>
-        <BackForthBTN onClick={() => setPageST(p => p + 1)} disabled={loadingST} >next</BackForthBTN>
-      </BtnGroup>
+      <Pagination changePage={changePage} setPageST={setPageST} loadingST={loadingST} pageST={pageST} />
 
     </MainWrapper>
   )
@@ -88,12 +81,25 @@ const Home = () => {
 const MainWrapper = styled.main`
   background-color: ${p => p.theme.BG.main2};
   min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px ${p => p.theme.MARGIN.mar10};
+  padding-bottom: 40px;
 `
 
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 10px;
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: 550px) {
+    grid-template-columns: 1fr;
+  }
 `
 
 const BtnGroup = styled.div`
@@ -124,7 +130,6 @@ const CurPageBTN = styled(BTN)`
   
 `
 
-
 const TriangleIcon = styled(VscTriangleUp)`
   font-size: 0.77rem;
   color: ${p => p.theme.BTN.currentPage};
@@ -132,7 +137,5 @@ const TriangleIcon = styled(VscTriangleUp)`
   bottom: -15px;
   left: 12px;
 `
-
-
 
 export default Home
