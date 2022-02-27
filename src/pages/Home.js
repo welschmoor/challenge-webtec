@@ -14,11 +14,11 @@ const Home = () => {
   const [pageST, setPageST] = useState(1)
   const [limitST, setLimitST] = useState(20) // show 20 per page
   const [loadingST, setLoadingST] = useState(true)
-
+  console.log('dataST', dataST)
+  console.log('limitST', limitST)
   const [inputValue, setInputValue] = useState("")
   const [searchTerm, setSearchTerm] = useState("")
-  console.log("dataST", dataST)
-  console.log("pageST", pageST)
+
 
 
   /* limit fields:
@@ -29,7 +29,8 @@ const Home = () => {
 
   const api_url = searchTerm.trim().length < 1
     ? `https://api.artic.edu/api/v1/artworks?page=${pageST}&limit=${limitST}&fields=id,image_id,title`
-    : `https://api.artic.edu/api/v1/artworks/search?q=${searchTerm}?page=${pageST}&limit=${limitST}&fields=id,image_id,title`
+    // : `https://api.artic.edu/api/v1/artworks/search?q=${searchTerm}&page=${pageST}&fields=image_id,id,title`
+    : `https://api.artic.edu/api/v1/artworks/search?q=${searchTerm}&page=${pageST}&limit=${limitST}&fields=id,image_id,title`
 
   useEffect(() => {
     let unsub = false
@@ -37,6 +38,7 @@ const Home = () => {
       setLoadingST(true)
       try {
         const response = await axios.get(api_url)
+        console.log('response', response)
         if (!unsub) {
           setDataST(response.data.data)
         }
