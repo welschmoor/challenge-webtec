@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { VscTriangleUp } from "react-icons/vsc"
 import ArtCard from "../components/ArtCard"
 import Pagination from '../components/Pagination'
+import SearchForm from '../components/SearchForm'
 import ItemsPerPage from '../components/ItemsPerPage'
 // Zum ersten mal im Leben die Pagination mit REST gemacht (bisher nur in GraphQL)
 
@@ -13,16 +14,23 @@ const Home = () => {
   const [pageST, setPageST] = useState(1)
   const [limitST, setLimitST] = useState(20) // show 20 per page
   const [loadingST, setLoadingST] = useState(true)
+
+  const [inputValue, setInputValue] = useState("")
+  const [searchTerm, setSearchTerm] = useState("")
   console.log("dataST", dataST)
   console.log("pageST", pageST)
 
 
   /* limit fields:
      ... ?fields=id,title,artist_display,date_display,main_reference_number
-
    paginate and limit (limit per page):
      ?page=2&limit=100 */
-  const api_url = `https://api.artic.edu/api/v1/artworks?page=${pageST}&limit=${limitST}&fields=id,image_id,title`
+
+
+  const api_url = searchTerm.trim().length < 1
+    ? `https://api.artic.edu/api/v1/artworks?page=${pageST}&limit=${limitST}&fields=id,image_id,title`
+    : `https://api.artic.edu/api/v1/artworks/search?q=${searchTerm}?page=${pageST}&limit=${limitST}&fields=id,image_id,title`
+
   useEffect(() => {
     let unsub = false
     const fetchData = async () => {
@@ -40,16 +48,12 @@ const Home = () => {
     }
     fetchData()
     return () => { unsub = true }
-  }, [limitST, pageST]) //end useEffect
+  }, [limitST, pageST, searchTerm, api_url]) //end useEffect
 
   const changeLimitHandler = (limitINT) => {
     console.log('limitINT', limitINT)
     setLimitST(Number(limitINT))
   }
-
-  // const showPageNumHandler = pageINT => {
-
-  // }
 
   const changePage = (pageUpOrDown) => {
     if (pageST < 2 && pageUpOrDown === "down") { return }
@@ -60,8 +64,16 @@ const Home = () => {
     }
   }
 
+  const searchHandler = e => {
+    e.preventDefault()
+    setSearchTerm(inputValue)
+  }
+
   return (
     <MainWrapper>
+      <form onSubmit={searchHandler}>
+        <input name="searchInput" id="searchInput" value={inputValue} onChange={e => setInputValue(e.target.value)} />
+      </form>
       <ItemsPerPage changeLimitHandler={changeLimitHandler} />
 
       <Pagination changePage={changePage} setPageST={setPageST} loadingST={loadingST} pageST={pageST} />
