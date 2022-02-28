@@ -1,5 +1,7 @@
 # Webtec Challenge
 
+![preview picture](https://github.com/welschmoor/challenge-webtec/blob/main/preview_pics/previewImage_1.jpg)
+
 ### to run
 
 `npm i`
