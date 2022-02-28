@@ -13,6 +13,7 @@ export const GlobalStyle = createGlobalStyle`
   html {
     font-size: 125%;
     font-family: Arial;
+    color: ${p => p.theme.TEXT.grey};
   }
 `
 

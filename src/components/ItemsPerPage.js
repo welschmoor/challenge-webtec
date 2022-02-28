@@ -5,7 +5,7 @@ import styled from "styled-components"
 const ItemsPerPage = ({ changeLimitHandler }) => {
   return (
     <SelectWrapper>
-      <div>Pictures per page: </div>
+      <PPPtext>Pictures per page: </PPPtext>
       <Select onChange={e => changeLimitHandler(e.target.value)}>
         <option value="20"  >20</option>
         <option value="50"  >50</option>
@@ -26,6 +26,10 @@ const SelectWrapper = styled.div`
 
 const Select = styled.select`
 
+`
+
+const PPPtext = styled.p`
+  font-size: 0.82rem;
 `
 
 export default ItemsPerPage

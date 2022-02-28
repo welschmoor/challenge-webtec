@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react'
 //styles
 import styled from 'styled-components'
 import { VscTriangleUp } from "react-icons/vsc"
+import { BTN } from "../STYLE/styleButtons"
 
 import ArtCard from "../components/ArtCard"
 import Pagination from '../components/Pagination'
@@ -84,7 +85,7 @@ const Home = () => {
           <Input name="searchInput" id="searchInput" value={inputValue} onChange={e => setInputValue(e.target.value)} />
           <SubmitBTN type="submit" >Search</SubmitBTN>
         </Form>
-        <button type="button" onClick={showAllHandler}>Show All</button>
+        <ShowAllBTN type="button" onClick={showAllHandler}>Show All</ShowAllBTN>
       </FormDiv>
 
       <ItemsPerPage changeLimitHandler={changeLimitHandler} />
@@ -127,18 +128,62 @@ const Grid = styled.div`
   }
 `
 
+
+///////////////////////////////
+// FORM
 const FormDiv = styled.div`
   display: flex;
   gap: 10px;
   height: 40px;
+  margin: 0 ${p => p.theme.MARGIN.mar10};
+  margin-bottom: 40px;
+  /* width: 100%; */
+
+  @media (max-width: 550px) {
+    display: block;
+  }
 `
 
-const SubmitBTN= styled.button`
-  
+const SubmitBTN = styled.button`
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  min-width: 100px;
+
+
+  cursor: pointer;
+
+  background-color: ${p => p.disabled ? p.theme.BTN.mainDisabled : p.theme.BTN.main};
+  color: ${p => p.disabled ? p.theme.BTN.textDisabled : p.theme.BTN.text};
+  /* border: 1px solid purple; */
+  border: none;
+
 `
 
-const Form= styled.form`
-  
+const Form = styled.form`
+  height: 100%;
+  display: flex;
+`
+
+const Input = styled.input`
+  height: 100%;
+  padding-left: 12px;
+  min-width: 260px;
+
+  @media (max-width: 550px) {
+    min-width: 0;
+  }
+`
+
+const ShowAllBTN = styled.button`
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+
+  @media (max-width: 550px) {
+    display: block;
+  }
 `
 
 export default Home
