@@ -1,13 +1,15 @@
 
-import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import React, { useState, useEffect } from 'react'
+
+//styles
 import styled from 'styled-components'
 import { VscTriangleUp } from "react-icons/vsc"
+
 import ArtCard from "../components/ArtCard"
 import Pagination from '../components/Pagination'
-import SearchForm from '../components/SearchForm'
 import ItemsPerPage from '../components/ItemsPerPage'
-// Zum ersten mal im Leben die Pagination mit REST gemacht (bisher nur in GraphQL)
+
 
 const Home = () => {
   const [dataST, setDataST] = useState([])
@@ -26,11 +28,9 @@ const Home = () => {
    paginate and limit (limit per page):
      ?page=2&limit=100 */
 
-
   const api_url = searchTerm.trim().length < 1
     ? `https://api.artic.edu/api/v1/artworks?page=${pageST}&limit=${limitST}&fields=id,image_id,title`
-    // : `https://api.artic.edu/api/v1/artworks/search?q=${searchTerm}&page=${pageST}&fields=image_id,id,title`
-    : `https://api.artic.edu/api/v1/artworks/search?q=${searchTerm}&page=${pageST}&limit=${limitST}&fields=id,image_id,title`
+    : `https://api.artic.edu/api/v1/artworks/search?q=${searchTerm}?page=${pageST}&limit=${limitST}&fields=id,image_id,title`
 
   useEffect(() => {
     let unsub = false
@@ -68,14 +68,25 @@ const Home = () => {
 
   const searchHandler = e => {
     e.preventDefault()
-    setSearchTerm(inputValue)
+    setSearchTerm(inputValue.trim())
+  }
+
+  const showAllHandler = () => {
+    setSearchTerm("")
+    setInputValue("")
+    setPageST(1)
   }
 
   return (
     <MainWrapper>
-      <form onSubmit={searchHandler}>
-        <input name="searchInput" id="searchInput" value={inputValue} onChange={e => setInputValue(e.target.value)} />
-      </form>
+      <FormDiv>
+        <Form onSubmit={searchHandler}>
+          <Input name="searchInput" id="searchInput" value={inputValue} onChange={e => setInputValue(e.target.value)} />
+          <SubmitBTN type="submit" >Search</SubmitBTN>
+        </Form>
+        <button type="button" onClick={showAllHandler}>Show All</button>
+      </FormDiv>
+
       <ItemsPerPage changeLimitHandler={changeLimitHandler} />
 
       <Pagination changePage={changePage} setPageST={setPageST} loadingST={loadingST} pageST={pageST} />
@@ -99,14 +110,14 @@ const MainWrapper = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0px ${p => p.theme.MARGIN.mar10};
-  padding-bottom: 40px;
+  padding: 40px ${p => p.theme.MARGIN.mar10};
 `
 
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 10px;
+  padding-top: 20px;
 
   @media (max-width: 800px) {
     grid-template-columns: 1fr 1fr;
@@ -116,40 +127,18 @@ const Grid = styled.div`
   }
 `
 
-const BtnGroup = styled.div`
+const FormDiv = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 10px;
+  height: 40px;
 `
 
-const BTN = styled.button`
-  font-size: 0.9rem;
-  cursor: pointer;
-  min-width: 40px;
-  min-height: 40px;
-
-  background-color: ${p => p.disabled ? p.theme.BTN.mainDisabled : p.theme.BTN.main};
-  color: ${p => p.disabled ? p.theme.BTN.textDisabled : p.theme.BTN.text};
-  /* border: 1px solid purple; */
-  border: none;
-  border-radius: 226px;
-`
-
-const BackForthBTN = styled(BTN)`
-  min-width: 90px;
-`
-
-const CurPageBTN = styled(BTN)`
-  background-color: ${p => p.theme.BTN.currentPage};
-  position: relative;
+const SubmitBTN= styled.button`
   
 `
 
-const TriangleIcon = styled(VscTriangleUp)`
-  font-size: 0.77rem;
-  color: ${p => p.theme.BTN.currentPage};
-  position: absolute;
-  bottom: -15px;
-  left: 12px;
+const Form= styled.form`
+  
 `
 
 export default Home

@@ -26,7 +26,7 @@ const BtnGroup = styled.div`
 
 const CenterGroup = styled.div`
   display: flex;
-  gap: 20px
+  gap: 20px;
 `
 
 const BTN = styled.button`
@@ -39,7 +39,7 @@ const BTN = styled.button`
   color: ${p => p.disabled ? p.theme.BTN.textDisabled : p.theme.BTN.text};
   /* border: 1px solid purple; */
   border: none;
-  border-radius: 226px;
+
 `
 
 const BackForthBTN = styled(BTN)`

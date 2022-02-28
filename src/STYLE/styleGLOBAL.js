@@ -2,6 +2,7 @@
 import { withTheme } from "styled-components";
 import { createGlobalStyle } from "styled-components";
 
+
 export const GlobalStyle = createGlobalStyle`
   * {
     padding: 0;
@@ -16,14 +17,17 @@ export const GlobalStyle = createGlobalStyle`
 `
 
 export const lightTheme = {
+  TEXT: {
+    grey: "#3b3b3b",
+  },
   BG: {
-    main: "grey",
-    main2: "#e2e2e2",
+    main: "white",
+    main2: "white",
   },
   BTN: {
-    main: "#6565e0",
-    mainDisabled: "hsl(240, 66.48648648648648%, 73.725490196078425%)",
-    currentPage: "#6565e0",
+    main: "#979797",
+    mainDisabled: "#e4e4e4",
+    currentPage: "#eb9c9c",
 
     text: "white",
     textDisabled: "#bebdbd",
@@ -31,8 +35,14 @@ export const lightTheme = {
   MARGIN: {
     mar10: "10px",
     mar20: "20px",
-  }
+  },
+  MISC: {
+    separator: "#d8cdcd",
+  },
+
 }
+
+
 
 export const darkTheme = {
   BG: {
