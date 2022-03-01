@@ -21,7 +21,7 @@ const IMG = styled.img`
 
 const Title = styled.h3`
   font-size: 1rem;
-  
+  color: ${p=>p.theme.TEXT.title};
 `
 
 export default ArtCard

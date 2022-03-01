@@ -8,22 +8,38 @@ import Navbar from "./components/Navbar"
 import { useEffect, useState } from "react"
 import axios from "axios"
 
-import { GlobalStyle } from './STYLE/styleGLOBAL'
+
+import { ThemeProvider } from 'styled-components';
+import { GlobalStyle, lightTheme, darkTheme } from './STYLE/styleGLOBAL'
 
 
 function App() {
+  const [darkMode, setDarkMode] = useState(() => {
+    if (localStorage.getItem("chicagoDarkMode")) {
+      return localStorage.getItem("chicagoDarkMode") === "false"
+    }
+    return true
+  })
+  const changeDarkMode = () => {
+    setDarkMode(p => {
+      window.localStorage.setItem("chicagoDarkMode", p)
+
+      return !p
+    })
+  }
 
 
   return (
     <BrowserRouter>
-      <GlobalStyle />
-      <Navbar></Navbar>
-      <Routes>
-        <Route path='/' element={<Home />} exact />
-        <Route path='/about' element={<About />} />
-        <Route path='*' element={<Page404 />} />
-      </Routes>
-
+      <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+        <GlobalStyle />
+        <Navbar changeDarkMode={changeDarkMode} ></Navbar>
+        <Routes>
+          <Route path='/' element={<Home />} exact />
+          <Route path='/about' element={<About />} />
+          <Route path='*' element={<Page404 />} />
+        </Routes>
+      </ThemeProvider>
     </BrowserRouter>
   )
 }

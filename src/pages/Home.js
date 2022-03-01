@@ -4,8 +4,6 @@ import React, { useState, useEffect } from 'react'
 
 //styles
 import styled from 'styled-components'
-import { VscTriangleUp } from "react-icons/vsc"
-import { BTN } from "../STYLE/styleButtons"
 
 import ArtCard from "../components/ArtCard"
 import Pagination from '../components/Pagination'
@@ -17,8 +15,7 @@ const Home = () => {
   const [pageST, setPageST] = useState(1)
   const [limitST, setLimitST] = useState(20) // show 20 per page
   const [loadingST, setLoadingST] = useState(true)
-  console.log('dataST', dataST)
-  console.log('limitST', limitST)
+
   const [inputValue, setInputValue] = useState("")
   const [searchTerm, setSearchTerm] = useState("")
 
@@ -180,6 +177,7 @@ const ShowAllBTN = styled.button`
   border: none;
   cursor: pointer;
   background-color: transparent;
+  color: ${p=>p.theme.TEXT.title};
 
   @media (max-width: 550px) {
     display: block;

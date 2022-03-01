@@ -20,6 +20,7 @@ export const GlobalStyle = createGlobalStyle`
 export const lightTheme = {
   TEXT: {
     grey: "#3b3b3b",
+    title: "",
   },
   BG: {
     main: "white",
@@ -40,14 +41,32 @@ export const lightTheme = {
   MISC: {
     separator: "#d8cdcd",
   },
-
 }
 
 
 
 export const darkTheme = {
+  TEXT: {
+    grey: "#ffffff",
+    title: "#ddd0d0",
+  },
   BG: {
-    main: "black",
-    main2: "black",
-  }
+    main: "#4d4d4d",
+    main2: "#4b4b4b",
+  },
+  BTN: {
+    main: "#979797",
+    mainDisabled: "#e4e4e4",
+    currentPage: "#eb9c9c",
+
+    text: "white",
+    textDisabled: "#bebdbd",
+  },
+  MARGIN: {
+    mar10: "10px",
+    mar20: "20px",
+  },
+  MISC: {
+    separator: "#d8cdcd",
+  },
 }

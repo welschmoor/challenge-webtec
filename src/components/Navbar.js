@@ -2,8 +2,12 @@
 import { NavLink as NavLinkNS, Link } from "react-router-dom"
 import styled from "styled-components"
 import { SeparatorLine } from '../STYLE/styleMISC'
+import { CgDarkMode } from "react-icons/cg"
 
-const Navbar = () => {
+
+const Navbar = ({ changeDarkMode }) => {
+
+
   return (
     <>
       <NavbarWrapper>
@@ -22,6 +26,7 @@ const Navbar = () => {
         </MainNav>
       </NavbarWrapper>
       <SeparatorLine />
+      <DarkModeIcon onClick={changeDarkMode} />
     </>
   )
 }
@@ -63,6 +68,15 @@ const NavLink = styled(NavLinkNS)`
   text-decoration: none;
   color: ${p => p.theme.TEXT.grey};
   font-size: 0.9rem;
+`
+
+const DarkModeIcon = styled(CgDarkMode)`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: grey;
 `
 
 export default Navbar
