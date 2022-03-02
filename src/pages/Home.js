@@ -80,7 +80,7 @@ const Home = () => {
 
   return (
     <MainWrapper>
-      {modalOpened && <Modal modalOpened={modalOpened} e={modalData?.e && modalData.e} />}
+      {modalOpened && <Modal modalOpened={modalOpened} e={modalData?.e && modalData.e} setModalOpened={setModalOpened} />}
       <ModalPlane onClick={() => setModalOpened(false)} modalOpened={modalOpened} setModalOpened={setModalOpened} />
       <FormDiv>
         <Form onSubmit={searchHandler}>
