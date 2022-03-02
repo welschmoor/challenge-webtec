@@ -2,16 +2,19 @@ import styled from "styled-components"
 import Modal from "./Modal"
 
 // e steht bei mir fast immer fuer each
-const ArtCard = ({ e, modalOpened, setModalOpened }) => {
+const ArtCard = ({ e, setModalData, setModalOpened }) => {
   const imgURL = `https://www.artic.edu/iiif/2/${e.image_id}/full/843,/0/default.jpg`
 
 
+  const modalDataHandler = () => {
+    setModalData({ imgURL: imgURL, e: e })
+    setModalOpened(true)
+  }
 
   return (
-    <div onClick={() => setModalOpened(true)}>
-      <Modal e={e} modalOpened={modalOpened} />
+    <div >
       <Title>{e.title}</Title>
-      <IMG src={imgURL} alt={e.title} />
+      <IMG src={imgURL} alt={e.title} onClick={modalDataHandler} />
       <br />
       <br />
     </div>

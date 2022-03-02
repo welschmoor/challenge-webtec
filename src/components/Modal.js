@@ -6,7 +6,6 @@ const Modal = ({ modalOpened, e }) => {
 
   return (
     <ModalWrapper modalOpened={modalOpened}>
-      <CloseBTN >X</CloseBTN>
       <IMG src={imgURL} alt={e.title} />
     </ModalWrapper>
   )
@@ -19,17 +18,16 @@ const ModalWrapper = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 100;
+  width: 90%;
+  max-width: 1000px;
 
-  background-color: grey;
-`
-
-const CloseBTN = styled.button`
-  position: absolute;
+  /* background-color: grey; */
 `
 
 const IMG = styled.img`
-  width: 100%;
+  display: block;
   cursor: pointer;
+  width: 100%;
 `
 
 export default Modal

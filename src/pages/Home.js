@@ -20,8 +20,8 @@ const Home = () => {
   const [inputValue, setInputValue] = useState("")
   const [searchTerm, setSearchTerm] = useState("")
 
-  const [modalOpened, setModalOpened] = useState(true)
-
+  const [modalOpened, setModalOpened] = useState(false)
+  const [modalData, setModalData] = useState({})
 
 
   /* limit fields:
@@ -80,6 +80,7 @@ const Home = () => {
 
   return (
     <MainWrapper>
+      {modalOpened && <Modal modalOpened={modalOpened} e={modalData?.e && modalData.e} />}
       <ModalPlane onClick={() => setModalOpened(false)} modalOpened={modalOpened} setModalOpened={setModalOpened} />
       <FormDiv>
         <Form onSubmit={searchHandler}>
@@ -94,7 +95,7 @@ const Home = () => {
       <Pagination changePage={changePage} setPageST={setPageST} loadingST={loadingST} pageST={pageST} />
 
       <Grid>
-        {dataST.map(e => <ArtCard key={e.id} e={e} modalOpened={modalOpened} setModalOpened={setModalOpened} />)}
+        {dataST.map(e => <ArtCard key={e.id} e={e} setModalData={setModalData} setModalOpened={setModalOpened} />)}
       </Grid>
 
       <Pagination changePage={changePage} setPageST={setPageST} loadingST={loadingST} pageST={pageST} />
@@ -107,7 +108,7 @@ const ModalPlane = styled.div`
   position: fixed;
   height: 100vh;
   width: 100%;
-  background-color: #00000090;
+  background-color: #000000ce;
   z-index: 1;
   /* transform: translate(-50%, -50%); */
   top: 0;
