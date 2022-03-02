@@ -1,11 +1,13 @@
 
 import styled from "styled-components"
 
-const Modal = () => {
+const Modal = ({ modalOpened, e }) => {
+  const imgURL = `https://www.artic.edu/iiif/2/${e.image_id}/full/843,/0/default.jpg`
+
   return (
-    <ModalWrapper>
+    <ModalWrapper modalOpened={modalOpened}>
       <CloseBTN >X</CloseBTN>
-      MODAL
+      <IMG src={imgURL} alt={e.title} />
     </ModalWrapper>
   )
 }
@@ -17,8 +19,7 @@ const ModalWrapper = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 100;
-  height: 200px;
-  width: 300px;
+
   background-color: grey;
 `
 
@@ -26,7 +27,10 @@ const CloseBTN = styled.button`
   position: absolute;
 `
 
-
+const IMG = styled.img`
+  width: 100%;
+  cursor: pointer;
+`
 
 export default Modal
 

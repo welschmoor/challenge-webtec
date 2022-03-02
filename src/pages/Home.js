@@ -80,8 +80,7 @@ const Home = () => {
 
   return (
     <MainWrapper>
-      <Modal modalOpened={modalOpened} />
-      <ModalPlane onClick={() => setModalOpened(false)} modalOpened={modalOpened} />
+      <ModalPlane onClick={() => setModalOpened(false)} modalOpened={modalOpened} setModalOpened={setModalOpened} />
       <FormDiv>
         <Form onSubmit={searchHandler}>
           <Input name="searchInput" id="searchInput" value={inputValue} onChange={e => setInputValue(e.target.value)} />
@@ -95,7 +94,7 @@ const Home = () => {
       <Pagination changePage={changePage} setPageST={setPageST} loadingST={loadingST} pageST={pageST} />
 
       <Grid>
-        {dataST.map(e => <ArtCard key={e.id} e={e} />)}
+        {dataST.map(e => <ArtCard key={e.id} e={e} modalOpened={modalOpened} setModalOpened={setModalOpened} />)}
       </Grid>
 
       <Pagination changePage={changePage} setPageST={setPageST} loadingST={loadingST} pageST={pageST} />
