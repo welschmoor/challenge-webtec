@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import ArtCard from "../components/ArtCard"
 import Pagination from '../components/Pagination'
 import ItemsPerPage from '../components/ItemsPerPage'
+import Modal from '../components/Modal'
 
 
 const Home = () => {
@@ -18,6 +19,8 @@ const Home = () => {
 
   const [inputValue, setInputValue] = useState("")
   const [searchTerm, setSearchTerm] = useState("")
+
+  const [modalOpened, setModalOpened] = useState(true)
 
 
 
@@ -77,6 +80,8 @@ const Home = () => {
 
   return (
     <MainWrapper>
+      <Modal modalOpened={modalOpened} />
+      <ModalPlane onClick={() => setModalOpened(false)} modalOpened={modalOpened} />
       <FormDiv>
         <Form onSubmit={searchHandler}>
           <Input name="searchInput" id="searchInput" value={inputValue} onChange={e => setInputValue(e.target.value)} />
@@ -99,7 +104,17 @@ const Home = () => {
   )
 }
 
-
+const ModalPlane = styled.div`
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  background-color: #00000090;
+  z-index: 1;
+  /* transform: translate(-50%, -50%); */
+  top: 0;
+  left: 0;
+  display: ${p => p.modalOpened ? "" : "none"};
+`
 
 const MainWrapper = styled.main`
   background-color: ${p => p.theme.BG.main2};
@@ -177,7 +192,7 @@ const ShowAllBTN = styled.button`
   border: none;
   cursor: pointer;
   background-color: transparent;
-  color: ${p=>p.theme.TEXT.title};
+  color: ${p => p.theme.TEXT.title};
 
   @media (max-width: 550px) {
     display: block;

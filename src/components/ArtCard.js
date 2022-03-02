@@ -15,7 +15,6 @@ const ArtCard = ({ e }) => {
 }
 
 const IMG = styled.img`
-  
   width: 100%;
 `
 
