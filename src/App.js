@@ -30,7 +30,7 @@ function App() {
 
 
   return (
-    <BrowserRouter>
+
       <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
         <GlobalStyle />
         <Navbar changeDarkMode={changeDarkMode} ></Navbar>
@@ -40,7 +40,7 @@ function App() {
           <Route path='*' element={<Page404 />} />
         </Routes>
       </ThemeProvider>
-    </BrowserRouter>
+
   )
 }
 
